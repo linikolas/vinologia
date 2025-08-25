@@ -1,0 +1,24 @@
+# --- ОС и редакторы ---
+.DS_Store
+.vscode/
+.ipynb_checkpoints/
+
+# --- Python ---
+__pycache__/
+*.pyc
+.venv/
+env/
+*.egg-info/
+
+# --- Streamlit / секреты ---
+.streamlit/secrets.toml
+.env
+
+# --- Данные (обычно приватные и тяжёлые) ---
+data/*
+processed/*
+!data/README.md          # оставим памятку в папке
+!processed/README.md
+
+# --- Jupyter ---
+*.nbconvert.ipynb
