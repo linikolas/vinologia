@@ -22,3 +22,7 @@ processed/*
 
 # --- Jupyter ---
 *.nbconvert.ipynb
+
+# Data files
+*.xlsx
+*.csv
