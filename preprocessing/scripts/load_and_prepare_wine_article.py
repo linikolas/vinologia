@@ -85,3 +85,43 @@ def load_and_prepare_wine_articles(filepath: str) -> pd.DataFrame:
     df_wine = df_wine.map(lambda x: x.lower() if isinstance(x, str) else x)
 
     return df_wine
+
+def change_article_category(data) -> pd.DataFrame:
+    article = data.copy()
+
+    article.article_category = article.article_category.apply(lambda x: x.replace(' ', '_'))
+    article.only_glass_cat = article.only_glass_cat.apply(lambda x: x.replace(' ', '_'))
+
+    # --- 1) Маппинг для категорий статей ---
+    map_article_category = {
+        # белые
+        'белые_вина': 'белые_вина',
+        'белые_вина_россии': 'белые_вина',
+        # дижестивы / оранжи
+        'дижестивы/сладкие_вина': 'дижестивы_оранжи',
+        'пино_де_шарант': 'дижестивы_оранжи',
+        'оранжевые_и_розовые_вина': 'дижестивы_оранжи',
+        # красные
+        'красные_вина': 'красные_вина',
+        'красные_вина_россии': 'красные_вина',
+        # игристые
+        'игристые_вина_россия': 'игристые',
+        'игристые_вина_со_всего_мира': 'игристые',
+        'шампань_франция': 'игристые',
+    }
+
+    # --- 2) Маппинг для only_glass.* ---
+    map_only_glass = {
+        'белые_150_мл': 'белые_вина',
+        'дижестивы_и_розовые_75-150_мл': 'дижестивы_оранжи',
+        'игристые_150_мл': 'игристые',
+        'красные_150_мл': 'красные_вина',
+    }
+
+    article.article_category = article.article_category.replace(map_article_category)
+    article.only_glass_cat = article.only_glass_cat.replace(map_only_glass)
+
+    article.only_glass_cat = np.where(
+        article.only_glass_cat == 'другое',
+        article.article_category, article.only_glass_cat
+    )
