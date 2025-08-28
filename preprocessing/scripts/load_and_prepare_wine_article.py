@@ -86,7 +86,7 @@ def load_and_prepare_wine_articles(filepath: str) -> pd.DataFrame:
 
     return df_wine
 
-def change_article_category(data) -> pd.DataFrame:
+def change_article_category(data: pd.DataFrame) -> pd.DataFrame:
     article = data.copy()
 
     article.article_category = article.article_category.apply(lambda x: x.replace(' ', '_'))
@@ -125,3 +125,5 @@ def change_article_category(data) -> pd.DataFrame:
         article.only_glass_cat == 'другое',
         article.article_category, article.only_glass_cat
     )
+
+    return article

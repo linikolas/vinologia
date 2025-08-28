@@ -17,7 +17,7 @@ def merge_and_select(dish_df, article_df):
 def add_glass_column(df):
     """Добавляет признак 'glass' (бокал или бутылка)."""
     df['glass'] = np.where(
-        (df['article_category'] == 'вина по бокалам 150 мл') |
+        (df['article_category'] == 'вина_по_бокалам_150_мл') |
         ((df['quantity'] % 1 != 0) & (df['quantity'] != 0)),
         'бокал', 'бутылка'
     )
@@ -35,12 +35,12 @@ def normalize_quantity(df):
 def add_glass_prices(df):
     """Рассчитывает цену и себестоимость одного бокала."""
     df['glass_price'] = np.where(
-        (df['glass'] == 'бокал') & (df['article_category'] != 'вина по бокалам 150 мл'),
+        (df['glass'] == 'бокал') & (df['article_category'] != 'вина_по_бокалам_150_мл'),
         df['article_price'] / 5,
         df['article_price']
     )
     df['glass_profit'] = np.where(
-        (df['glass'] == 'бокал') & (df['article_category'] != 'вина по бокалам 150 мл'),
+        (df['glass'] == 'бокал') & (df['article_category'] != 'вина_по_бокалам_150_мл'),
         df['article_profit'] / 5,
         df['article_profit']
     )
