@@ -19,6 +19,7 @@ data/*
 processed/*
 !data/README.md          # оставим памятку в папке
 !processed/README.md
+archive/
 
 # --- Jupyter ---
 *.nbconvert.ipynb
